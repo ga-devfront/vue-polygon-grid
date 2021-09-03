@@ -172,6 +172,7 @@ export default {
 |`:background`|String|`null`| Allows you to use a global background. All CSS background are accepted (gradiant, color, image) with these parameters.<br>**Be careful, this background can be overwritten when passing through the tree**|
 |`:border-size`|Number|`0`|Allows you to set the size (in `px`) and color of the border.<br>If you don't want one, let it blank.|
 |`:border-color`|String|`'#000000'`| Allows you to define a particular color for your borders. All CSS color modes are accepted (string, HEX, and RGB)|
+
 *`*` denotes required props*
 
 #### emit details
@@ -236,6 +237,7 @@ The tree must be a javascript Object (or JSON) and can be composed of the follow
 |`background`|String|`null`| Allows you to use specific polygon background. All CSS background are accepted (gradiant, color, image) with these parameters.<br>**Be careful, this background overwritten global background**|
 |`children`|Array|`[]`| Is an array that will allow you to add the child elements of your polygon, they can be 6 at most and must have the same structure.<br>**Be careful if the number of children exceed the possible number of places the grid cannot be created.**|
 |`order`|Object|`{ 0: 'topRight', 1: 'bottomRight', 2: 'bottom', 3: 'bottomLeft', 4: 'topLeft', 5: 'top', }`| Allows you to define the order in which the children of your polygon will be added. Be careful if you decide to rewrite it, each element must be positioned (no duplication possible).|
+
 *`*` denotes required fields*
 
 ## How it works
