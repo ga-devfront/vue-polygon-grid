@@ -26,19 +26,50 @@ export default class DatasTransformer {
   }
 
   updatePolygonDatas() {
-    if (!this.getDatasValidity()) {
-      throw new Error('The data is not correct')
-    }
+    if (this.getDatasValidity()) {
+      if (this.transformedDatas instanceof Polygon) {
+        this.clearTransformedDatas()
+      }
 
-    if (this.transformedDatas instanceof Polygon) {
-      this.clearTransformedDatas()
+      this.initTransformedDatas()
     }
-
-    this.initTransformedDatas()
   }
 
   getDatasValidity() {
-    return typeof this.datas === 'object'
+    return this.datasValidator(this.datas)
+  }
+
+  datasValidator(datas) {
+    let isValid = true
+
+    const validProperty = [
+      'name',
+      'metas',
+      'background',
+      'color',
+      'children',
+      'order',
+    ]
+
+    if (typeof datas === 'object') {
+      Object.keys(datas).forEach((property) => {
+        isValid = isValid && validProperty.includes(property)
+      })
+      isValid = isValid && !!datas.name
+
+      if (datas.children && datas.children.length > 0) {
+        datas.children.forEach((child) => {
+          isValid = isValid && this.datasValidator(child)
+        })
+      }
+    } else {
+      isValid = false
+    }
+
+    if (!isValid) {
+      throw new Error('The datas structure is not correct !')
+    }
+    return isValid
   }
 
   clearTransformedDatas() {

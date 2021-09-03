@@ -3,7 +3,7 @@
     <div class="line" v-for="(line, index) in polygonGrid.grid" :key="'line_' + index">
       <div class="column" v-for="(column, index) in line" :key="'column_' + index">
         <div class="polygon" v-if="typeof column === 'object' && column.name" @click="emitInfos('clicked', column)" @mouseover="emitInfos('hovered', column)">
-          <svg class="polygon-border" viewBox="0 0 100 87.5" xmlns="http://www.w3.org/2000/svg">
+          <svg class="polygon-border" viewBox="0 0 100 87.5" xmlns="http://www.w3.org/2000/svg" :style="{ background: column.background }">
             <defs>
               <polygon id="polygon" points="25 0, 75 0, 100 43.75, 75 87.5, 25 87.5, 0 43.75" fill="none" shape-rendering="geometricPrecision"/>
               <clipPath id="insidePolygon">
@@ -15,7 +15,7 @@
             clip-path="url(#insidePolygon)"
             />
           </svg>
-          <div class="content">
+          <div class="content" :style="{ color: column.color }">
             <slot v-bind:infos="column">
               {{ column.name }}
             </slot>
@@ -34,7 +34,7 @@ import PolygonGrid from '@/utility/PolygonGrid'
 export default {
   name: 'VuePolygonGrid',
   props: {
-    datas: {
+    tree: {
       required: true,
       type: Object,
     },
@@ -45,45 +45,55 @@ export default {
         return 150
       },
     },
-    clicked: {
+    background: {
       required: false,
-      type: Boolean,
+      type: String,
       default() {
-        return false
+        return null
       },
     },
-    hovered: {
+    color: {
       required: false,
-      type: Boolean,
+      type: String,
       default() {
-        return false
+        return '#000000'
       },
     },
-    border: {
+    borderSize: {
       required: false,
-      type: [Number, Object],
+      type: Number,
       default() {
-        return { width: 3, color: '#000000' }
+        return 0
+      },
+    },
+    borderColor: {
+      required: false,
+      type: String,
+      default() {
+        return '#000000'
       },
     },
   },
   setup(props, context) {
-    const polygonGrid = new PolygonGrid(props.datas)
+    const polygonGrid = new PolygonGrid(props.tree)
     const ratio = 0.875
     const customSize = computed(() => {
       const sizeNumber = props.size
-      let borderWidthNumber = 3
+      let color = '#000000'
+      let background = null
+      let borderWidthNumber = 0
       let borderColor = '#000000'
-      if (typeof props.border === 'object') {
-        if (props.border.width) {
-          borderWidthNumber = props.border.width * 2
-        }
-        if (props.border.color) {
-          borderColor = props.border.color
-        }
+      if (props.background && typeof props.background === 'string') {
+        background = props.background
       }
-      if (typeof props.border === 'number') {
-        borderWidthNumber = props.border * 2
+      if (props.color && typeof props.color === 'string') {
+        color = props.color
+      }
+      if (props.borderSize && typeof props.borderSize === 'number') {
+        borderWidthNumber = props.borderSize * 2
+      }
+      if (props.borderColor && typeof props.borderColor === 'string') {
+        borderColor = props.borderColor
       }
       return {
         '--padding-container': `${(sizeNumber * ratio) / 4}px`,
@@ -93,18 +103,37 @@ export default {
         '--polygon-height': `${sizeNumber * ratio}px`,
         '--polygon-border-width': `${borderWidthNumber}px`,
         '--polygon-border-color': `${borderColor}`,
+        '--polygon-color': `${color}`,
+        '--polygon-background': `${background}`,
       }
     })
 
-    const formatPolygonInfos = (polygon) => ({
-      name: polygon.name,
-      metas: polygon.metas,
-    })
+    const formatPolygonInfos = (polygon) => {
+      const children = []
+      polygon.children.forEach((child) => {
+        children.push({
+          name: child.name,
+          metas: child.metas,
+        })
+      })
+
+      const parent = {}
+
+      if (polygon.parent) {
+        parent.name = polygon.parent.name
+        parent.metas = polygon.parent.metas
+      }
+
+      return {
+        name: polygon.name,
+        metas: polygon.metas,
+        children,
+        parent,
+      }
+    }
 
     const emitInfos = (type, polygon) => {
-      if (props[type]) {
-        context.emit(type, formatPolygonInfos(polygon))
-      }
+      context.emit(type, formatPolygonInfos(polygon))
     }
 
     return {
@@ -117,9 +146,6 @@ export default {
 </script>
 
 <style lang="scss">
-$polygonSize: 150px;
-$ratio: 0.875;
-
 .grid-container {
   padding: var(--padding-container) 0;
   .line {
@@ -151,6 +177,7 @@ $ratio: 0.875;
         right: 0;
         stroke-width: var(--polygon-border-width);
         stroke: var(--polygon-border-color);
+        background: var(--polygon-background);
       }
       .content {
         display: flex;
@@ -163,7 +190,7 @@ $ratio: 0.875;
         left: 3px;
         right: 3px;
         bottom: 3px;
-        color: #0B5345;
+        color: var(--polygon-color);
       }
     }
   }

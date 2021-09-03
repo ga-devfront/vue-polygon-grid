@@ -2,8 +2,10 @@ export default class Polygon {
   constructor(params) {
     this.name = params.name
     this.metas = params.metas || null
+    this.color = params.color || null
+    this.background = params.background || null
     this.children = params.children || []
-    this.parent = params.parent || null
+    this.parent = null
     this.placed = false
     this.order = params.order || {
       0: 'topRight',

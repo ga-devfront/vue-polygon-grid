@@ -1,21 +1,24 @@
 <template>
-  <h1>
-    JE SUIS VUE POLYGON GRID
-  </h1>
-  <VuePolygonGrid
-      :datas="myGrid"
-      :size="200"
-      :border="{ width: 2, color: '#138D75' }"
-      :hovered="false"
-      :clicked="true"
-      @hovered="printInfo"
-      @clicked="printInfo"
-      v-slot="slotProps"
-  >
-    {{ slotProps.infos.metas.icon }}
-  </VuePolygonGrid>
-  <div>
-    {{ infos }}
+  <div class="container">
+    <h1>
+      JE SUIS VUE POLYGON GRID
+    </h1>
+    <VuePolygonGrid
+        :tree="myGrid"
+        :size="200"
+        background="#000fff"
+        color="rgb(15, 150, 0)"
+        :border-size="2"
+        border-color="#000000"
+        @hovered="printInfo"
+        @clicked="printInfo"
+        v-slot="slotProps"
+    >
+      {{ slotProps.infos.metas.icon }}
+    </VuePolygonGrid>
+    <div>
+      {{ infos }}
+    </div>
   </div>
 </template>
 
@@ -45,6 +48,8 @@ export default {
             mastery: 'noob',
             icon: 'mdi-jq',
           },
+          background: '#010101',
+          color: '#ffffff',
           children: [
             {
               name: '2nd Recursivity',
@@ -53,6 +58,7 @@ export default {
                 mastery: 'noob',
                 icon: 'mdi-2nd',
               },
+              background: 'center / cover no-repeat url("https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547__480.jpg")',
               children: [
                 {
                   name: '3nd Recursivity',
@@ -61,6 +67,7 @@ export default {
                     mastery: 'noob',
                     icon: 'mdi-3nd',
                   },
+                  background: '#4c8934',
                 },
               ],
             },
@@ -73,6 +80,7 @@ export default {
             mastery: 'master',
             icon: 'mdi-vue',
           },
+          background: '#3980d0',
         },
         {
           name: 'ES6',
@@ -81,6 +89,7 @@ export default {
             mastery: 'average',
             icon: 'mdi-es6',
           },
+          background: '#897e34',
         },
         {
           name: 'VueJs',
@@ -89,6 +98,7 @@ export default {
             mastery: 'master',
             icon: 'mdi-vue',
           },
+          background: '#940ec0',
         },
       ],
     }
@@ -105,3 +115,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.container {
+  background: #f0f056;
+}
+</style>
