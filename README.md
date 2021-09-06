@@ -21,7 +21,7 @@ ___
 ## Compatibility
 Here you will find the table of compatible browsers.
 
-| <img src="http://assets.stickpng.com/images/588525cd6f293bbfae451a37.png" width="50"/> <br> Chrome | <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Firefox_logo.png" width="50"/> <br> Firefox | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Safari_browser_logo.svg/1200px-Safari_browser_logo.svg.png" width="50"/> <br> Safari | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Opera_2015_icon.svg/1200px-Opera_2015_icon.svg.png" width="50"/> <br> Opera | <img src="https://upload.wikimedia.org/wikipedia/fr/2/20/Logo_Microsoft_Edge.png" width="50"/> <br> Edge |
+| <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/512px-Google_Chrome_icon_%28September_2014%29.svg.png" width="50"/> <br> Chrome | <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Firefox_logo.png" width="50"/> <br> Firefox | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Safari_browser_logo.svg/1200px-Safari_browser_logo.svg.png" width="50"/> <br> Safari | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Opera_2015_icon.svg/1200px-Opera_2015_icon.svg.png" width="50"/> <br> Opera | <img src="https://upload.wikimedia.org/wikipedia/fr/2/20/Logo_Microsoft_Edge.png" width="50"/> <br> Edge |
 |---|---|---|---|---|
 | latest ✔ | latest ✔ | latest ✔ | latest ✔ | latest ✔ |
 
