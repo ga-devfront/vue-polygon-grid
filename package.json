@@ -5,22 +5,29 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test": "jest"
   },
   "dependencies": {
     "core-js": "^3.6.5",
     "vue": "^3.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.4",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
     "@vue/eslint-config-airbnb": "^5.0.2",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
+    "babel-jest": "^27.1.0",
+    "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jest": "^24.4.0",
     "eslint-plugin-vue": "^7.0.0",
+    "jest": "^27.1.0",
+    "jest-transform-stub": "^2.0.0",
     "sass": "^1.38.0",
     "sass-loader": "^10"
   }
