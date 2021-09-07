@@ -1,18 +1,9 @@
-import Polygon from '@/utility/PolygonClass'
+import Polygon from './PolygonClass'
 
 export default class DatasTransformer {
   constructor(datas) {
     this.datas = datas
     this.transformedDatas = null
-    this.grid = null
-    this.neighboursPosition = {
-      topLeft: [-1, -1],
-      top: [0, -2],
-      topRight: [1, -1],
-      bottomLeft: [-1, 1],
-      bottom: [0, 2],
-      bottomRight: [1, 1],
-    }
     this.updatePolygonDatas()
   }
 
@@ -26,50 +17,11 @@ export default class DatasTransformer {
   }
 
   updatePolygonDatas() {
-    if (this.getDatasValidity()) {
-      if (this.transformedDatas instanceof Polygon) {
-        this.clearTransformedDatas()
-      }
-
-      this.initTransformedDatas()
-    }
-  }
-
-  getDatasValidity() {
-    return this.datasValidator(this.datas)
-  }
-
-  datasValidator(datas) {
-    let isValid = true
-
-    const validProperty = [
-      'name',
-      'metas',
-      'background',
-      'color',
-      'children',
-      'order',
-    ]
-
-    if (typeof datas === 'object') {
-      Object.keys(datas).forEach((property) => {
-        isValid = isValid && validProperty.includes(property)
-      })
-      isValid = isValid && !!datas.name
-
-      if (datas.children && datas.children.length > 0) {
-        datas.children.forEach((child) => {
-          isValid = isValid && this.datasValidator(child)
-        })
-      }
-    } else {
-      isValid = false
+    if (this.transformedDatas instanceof Polygon) {
+      this.clearTransformedDatas()
     }
 
-    if (!isValid) {
-      throw new Error('The datas structure is not correct !')
-    }
-    return isValid
+    this.initTransformedDatas()
   }
 
   clearTransformedDatas() {
@@ -77,7 +29,7 @@ export default class DatasTransformer {
   }
 
   initTransformedDatas() {
-    this.transformedDatas = this.datas
+    this.transformedDatas = {...this.datas}
 
     this.transformedDatas = this.transformDataToPolygon(this.transformedDatas)
   }
