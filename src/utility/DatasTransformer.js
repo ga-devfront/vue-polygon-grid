@@ -1,18 +1,9 @@
-import Polygon from '@/utility/PolygonClass'
+import Polygon from './PolygonClass'
 
 export default class DatasTransformer {
   constructor(datas) {
     this.datas = datas
     this.transformedDatas = null
-    this.grid = null
-    this.neighboursPosition = {
-      topLeft: [-1, -1],
-      top: [0, -2],
-      topRight: [1, -1],
-      bottomLeft: [-1, 1],
-      bottom: [0, 2],
-      bottomRight: [1, 1],
-    }
     this.updatePolygonDatas()
   }
 
@@ -38,7 +29,7 @@ export default class DatasTransformer {
   }
 
   initTransformedDatas() {
-    this.transformedDatas = this.datas
+    this.transformedDatas = {...this.datas}
 
     this.transformedDatas = this.transformDataToPolygon(this.transformedDatas)
   }
